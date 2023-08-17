@@ -1,62 +1,6 @@
-import PropTypes from "prop-types";
-
-const Header = ({ name }) => {
-  return <h1>{name}</h1>;
-};
-
-Header.propTypes = {
-  name: PropTypes.string.isRequired,
-};
-
-const Part = ({ part, exercises }) => {
-  return (
-    <p>
-      {part} {exercises}
-    </p>
-  );
-};
-
-Part.propTypes = {
-  part: PropTypes.string.isRequired,
-  exercises: PropTypes.number.isRequired,
-};
-
-const Content = ({ parts }) => {
-  return (
-    <div>
-      {parts.map((part, index) => (
-        <Part key={index} part={part.name} exercises={part.exercises} />
-      ))}
-    </div>
-  );
-};
-
-Content.propTypes = {
-  parts: PropTypes.arrayOf(
-    PropTypes.shape({
-      name: PropTypes.string.isRequired,
-      exercises: PropTypes.number.isRequired,
-    })
-  ).isRequired,
-};
-
-const Total = ({ parts }) => {
-  const totalExercises = parts.reduce(
-    (total, part) => total + part.exercises,
-    0
-  );
-
-  return <h4>total of {totalExercises} exercises</h4>;
-};
-
-Total.propTypes = {
-  parts: PropTypes.arrayOf(
-    PropTypes.shape({
-      name: PropTypes.string.isRequired,
-      exercises: PropTypes.number.isRequired,
-    })
-  ).isRequired,
-};
+import Header from "./components/Header";
+import Content from "./components/Content";
+import Total from "./components/Total";
 
 const App = () => {
   const course = [
