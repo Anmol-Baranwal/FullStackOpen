@@ -34,10 +34,11 @@ const MaxAnecdote = ({anecdotes, votesAll}) => {
   const maxVoteCount= Math.max(...votesAll);
   const idx= votesAll.indexOf(maxVoteCount);
   const finalAnecdote = anecdotes[idx];
+  if(maxVoteCount === 0)  return <p>no votes yet</p>;
 
   return (
     <div>
-      {maxVoteCount && <p>{finalAnecdote}</p>} 
+      <p>{finalAnecdote}</p> 
       <p>has {maxVoteCount} votes</p>
     </div>
   );
