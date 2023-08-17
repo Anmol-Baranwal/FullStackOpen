@@ -1,4 +1,34 @@
 import { useState } from 'react'
+import PropTypes from 'prop-types';
+
+const Header = ({ name }) => {
+  return <h1>{name}</h1>;
+};
+
+Header.propTypes = {
+  name: PropTypes.string.isRequired,
+};
+
+const Anecdote = ({ txt, voteCount }) => (
+  <div>
+    <p>{txt}</p>
+    <p>has {voteCount} votes</p>
+  </div>
+);
+
+Anecdote.propTypes = {
+  txt: PropTypes.string.isRequired,
+  voteCount: PropTypes.number.isRequired,
+};
+
+const Button = ({onClick, txt}) => {
+  return <button onClick={onClick}>{txt}</button>;
+}
+
+Button.propTypes = {
+  onClick: PropTypes.func.isRequired,
+  txt: PropTypes.string.isRequired,
+};
 
 const App = () => {
   const anecdotes = [
@@ -14,12 +44,18 @@ const App = () => {
    
   const [selected, setSelected] = useState(0)
 
-  const arrIndex = Math.floor(Math.random() * anecdotes.length)
-    setSelected(arrIndex)
+  const handleAnecdoteClick = () => {
+    const arrayIndex = Math.floor(Math.random() * anecdotes.length);
+    setSelected(arrayIndex);
+  };
 
   return (
     <div>
-      {anecdotes[selected]}
+      <Header name="Anecdote of the day" />
+      <Anecdote txt={anecdotes[selected]} voteCount={0} />
+      <Button onClick={handleVoteClick} txt="vote" />
+      <Button onClick={handleAnecdoteClick} txt="Next anecdote" />
+      
     </div>
   )
 }
