@@ -1,4 +1,4 @@
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
 const Header = ({ name }) => {
   return <h1>{name}</h1>;
@@ -41,9 +41,12 @@ Content.propTypes = {
 };
 
 const Total = ({ parts }) => {
-  const totalExercises = parts.reduce((total, part) => total + part.exercises, 0);
+  const totalExercises = parts.reduce(
+    (total, part) => total + part.exercises,
+    0
+  );
 
-  return <p>Number of exercises: {totalExercises}</p>;
+  return <h4>total of {totalExercises} exercises</h4>;
 };
 
 Total.propTypes = {
@@ -56,38 +59,60 @@ Total.propTypes = {
 };
 
 const App = () => {
-
-  // const course = 'Half Stack application development'
-  // const part1 = 'Fundamentals of React'
-  // const exercises1 = 10
-  // const part2 = 'Using props to pass data'
-  // const exercises2 = 7
-  // const part3 = 'State of a component'
-  // const exercises3 = 14
-
-  const course = {
-    name: 'Half Stack application development',
-    parts: [
-      {
-        name: 'Fundamentals of React',
-        exercises: 10,
-      },
-      {
-        name: 'Using props to pass data',
-        exercises: 7,
-      },
-      {
-        name: 'State of a component',
-        exercises: 14,
-      },
-    ],
-  };
+  const course = [
+    {
+      name: "Half Stack application development",
+      id: 1,
+      parts: [
+        {
+          name: "Fundamentals of React",
+          exercises: 10,
+          id: 1,
+        },
+        {
+          name: "Using props to pass data",
+          exercises: 7,
+          id: 2,
+        },
+        {
+          name: "State of a component",
+          exercises: 14,
+          id: 3,
+        },
+        {
+          name: "Redux",
+          exercises: 11,
+          id: 4,
+        },
+      ],
+    },
+    {
+      name: "Node.js",
+      id: 2,
+      parts: [
+        {
+          name: "Routing",
+          exercises: 3,
+          id: 1,
+        },
+        {
+          name: "Middlewares",
+          exercises: 7,
+          id: 2,
+        },
+      ],
+    },
+  ];
 
   return (
     <div>
-      <Header name={course.name} />
-      <Content parts={course.parts} />
-      <Total parts={course.parts} />
+      {course.map((courseItem) => (
+        <div key={courseItem.id}>
+          <Header name={courseItem.name} />
+          <Content parts={courseItem.parts} />
+          <Total parts={courseItem.parts} />
+        </div>
+      ))}
     </div>
   );
 };
