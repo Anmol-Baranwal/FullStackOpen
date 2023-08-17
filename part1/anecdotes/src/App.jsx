@@ -30,6 +30,24 @@ Button.propTypes = {
   txt: PropTypes.string.isRequired,
 };
 
+const MaxAnecdote = ({anecdotes, votesAll}) => {
+  const maxVoteCount= Math.max(...votesAll);
+  const idx= votesAll.indexOf(maxVoteCount);
+  const finalAnecdote = anecdotes[idx];
+
+  return (
+    <div>
+      {maxVoteCount && <p>{finalAnecdote}</p>} 
+      <p>has {maxVoteCount} votes</p>
+    </div>
+  );
+}
+
+MaxAnecdote.propTypes = {
+  anecdotes: PropTypes.array.isRequired,
+  votesAll: PropTypes.array.isRequired,
+};
+
 const App = () => {
   const anecdotes = [
     'If it hurts, do it more often.',
@@ -43,6 +61,13 @@ const App = () => {
   ]
    
   const [selected, setSelected] = useState(0)
+  const [votesAll, setVotesAll] = useState(Array(8).fill(0)); // length of anecdotes
+
+  const handleVoteClick = () => {
+    const newVotes= [...votesAll];
+    newVotes[selected] += 1;
+    setVotesAll(newVotes);
+  }
 
   const handleAnecdoteClick = () => {
     const arrayIndex = Math.floor(Math.random() * anecdotes.length);
@@ -55,7 +80,8 @@ const App = () => {
       <Anecdote txt={anecdotes[selected]} voteCount={0} />
       <Button onClick={handleVoteClick} txt="vote" />
       <Button onClick={handleAnecdoteClick} txt="Next anecdote" />
-      
+      <Header name="Anecdote with most votes" />
+      <MaxAnecdote anecdotes={anecdotes} votesAll={votesAll} />
     </div>
   )
 }
